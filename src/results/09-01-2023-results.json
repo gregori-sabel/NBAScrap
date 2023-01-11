@@ -1,1 +1,95 @@
-{"date":"09/01/2023","games":[{"home":{"name":"Pistons","points":"111"},"away":{"name":"76ers","points":"123"}},{"home":{"name":"Raptors","points":"117"},"away":{"name":"Trail Blazers","points":"105"}},{"home":{"name":"Pacers","points":"116"},"away":{"name":"Hornets","points":"111"}},{"home":{"name":"Heat","points":"101"},"away":{"name":"Nets","points":"102"}},{"home":{"name":"Grizzlies","points":"123"},"away":{"name":"Jazz","points":"118"}},{"home":{"name":"Rockets","points":"96"},"away":{"name":"Timberwolves","points":"104"}},{"home":{"name":"Thunder","points":"120"},"away":{"name":"Mavericks","points":"109"}},{"home":{"name":"Suns","points":"98"},"away":{"name":"Cavaliers","points":"112"}},{"home":{"name":"Clippers","points":"108"},"away":{"name":"Hawks","points":"112"}}]}
+{
+  "date": "09/01/2023",
+  "games": [
+    {
+      "home": {
+        "name": "Pistons",
+        "points": "111"
+      },
+      "away": {
+        "name": "76ers",
+        "points": "123"
+      }
+    },
+    {
+      "home": {
+        "name": "Raptors",
+        "points": "117"
+      },
+      "away": {
+        "name": "Trail Blazers",
+        "points": "105"
+      }
+    },
+    {
+      "home": {
+        "name": "Pacers",
+        "points": "116"
+      },
+      "away": {
+        "name": "Hornets",
+        "points": "111"
+      }
+    },
+    {
+      "home": {
+        "name": "Heat",
+        "points": "101"
+      },
+      "away": {
+        "name": "Nets",
+        "points": "102"
+      }
+    },
+    {
+      "home": {
+        "name": "Grizzlies",
+        "points": "123"
+      },
+      "away": {
+        "name": "Jazz",
+        "points": "118"
+      }
+    },
+    {
+      "home": {
+        "name": "Rockets",
+        "points": "96"
+      },
+      "away": {
+        "name": "Timberwolves",
+        "points": "104"
+      }
+    },
+    {
+      "home": {
+        "name": "Thunder",
+        "points": "120"
+      },
+      "away": {
+        "name": "Mavericks",
+        "points": "109"
+      }
+    },
+    {
+      "home": {
+        "name": "Suns",
+        "points": "98"
+      },
+      "away": {
+        "name": "Cavaliers",
+        "points": "112"
+      }
+    },
+    {
+      "home": {
+        "name": "Clippers",
+        "points": "108"
+      },
+      "away": {
+        "name": "Hawks",
+        "points": "112"
+      }
+    }
+  ]
+}
