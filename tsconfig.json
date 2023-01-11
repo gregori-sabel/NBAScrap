@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "esModuleInterop": true,
+    "lib": [
+      "ES2021.String",
+      "dom"
+    ]
+  },
+  "include": [
+    "src",
+    "node_modules/puppeteer-tsd/src/index.d.ts"
+  ]
+}
