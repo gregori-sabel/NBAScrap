@@ -1,6 +1,7 @@
-import { DateObject } from ".."
+import { DayDataResult } from ".."
+import { DateObject } from "./basicTypes"
 
-export interface GameResultsJSON {
+export interface GameResult {
   home: {
     name: string,
     points: string
@@ -9,11 +10,11 @@ export interface GameResultsJSON {
     name: string,
     points: boolean
   },
-}[]
+}
 
 export interface ResultsDataSource {
   getData(
-    page: Promise<any>,
+    page: any,
     {year, month, day}: DateObject
-  ): GameResultsJSON
+  ): Promise<DayDataResult>
 }

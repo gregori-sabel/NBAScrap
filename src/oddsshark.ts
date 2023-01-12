@@ -1,11 +1,11 @@
-import { DateObject, jsonData } from ".";
-import { PredictionDataSource } from "./types/predictionTypes";
-
+import { DayDataPrediction } from ".";
+import { DateObject } from "./types/basicTypes";
+import { GamePrediction, PredictionDataSource } from "./types/predictionTypes";
 
 
 
 export class Oddsshark implements PredictionDataSource{
-  async getData(page: any, {year, month, day}: DateObject): (Promise<jsonData>){  
+  async getData(page: any, {year, month, day}: DateObject): (Promise<DayDataPrediction>){  
     await page.goto('https://www.oddsshark.com/nba/computer-picks');
 
     // Wait for the results page to load and display the results.

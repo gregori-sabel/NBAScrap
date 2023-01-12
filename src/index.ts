@@ -4,16 +4,19 @@ import fs from 'fs'
 import { Espn } from './espn'
 import { Oddsshark } from './oddsshark'
 import { getDateList } from './utils/GetDateList'
+import { GameResult, ResultsDataSource } from './types/resultTypes';
+import { GamePrediction, PredictionDataSource } from './types/predictionTypes';
 
-export interface DateObject {
-  day: string,
-  month: string,
-  year: string
+
+
+export interface DayDataResult {
+  date: string,
+  games: GameResult[]
 }
 
-export interface jsonData {
+export interface DayDataPrediction {
   date: string,
-  games: []
+  games: GamePrediction[]
 }
 
 
@@ -30,10 +33,9 @@ export interface jsonData {
   const dateAMDArray = getDateList('12/10/2022', '12/10/2022')
   console.log(dateAMDArray)
 
-
-  async function getResults() {
-    const espn = new Espn();  
-    const gamesData = await espn.getData(page, {day, month, year})
+  
+  async function getResults(resultsDataSource: ResultsDataSource) {
+    const gamesData = await resultsDataSource.getData(page, {day, month, year})
     console.log(gamesData)
     
     fs.writeFile(
@@ -48,9 +50,8 @@ export interface jsonData {
   }
 
 
-  async function getPredicts() {
-    const oddsshark = new Oddsshark();  
-    const gamesData = await oddsshark.getData(page, {day, month, year})
+  async function getPredicts(predictionDataSource: PredictionDataSource) {
+    const gamesData = await predictionDataSource.getData(page, {day, month, year})
     console.log(gamesData)
 
       fs.writeFile(
@@ -64,8 +65,11 @@ export interface jsonData {
       }); 
   }
 
-  await getResults()
-  await getPredicts()
+  const espn = new Espn(); 
+  await getResults(espn)
+  
+  const oddsshark = new Oddsshark(); 
+  await getPredicts(oddsshark)
 
   await browser.close();
 })();

@@ -1,9 +1,10 @@
-import { DateObject } from "."
-import { GameResultsJSON } from "./types/resultTypes";
+import { DayDataResult } from "."
+import { DateObject } from "./types/basicTypes";
+import { GameResult, ResultsDataSource } from "./types/resultTypes";
 
-export class Espn {
-
-  async getData(page: any, {year, month, day}: DateObject) {  
+export class Espn implements ResultsDataSource{
+  
+  async getData(page: any, {year, month, day}: DateObject):Promise<DayDataResult> {  
     const brFormattedDate = [day, month, year].join('/')
 
     console.log('espn: ', brFormattedDate)
@@ -14,7 +15,7 @@ export class Espn {
     // Wait for the results page to load and display the results.
     await page.waitForSelector('.gameModules');
 
-    const gamesObject: GameResultsJSON = await page.evaluate(() => {
+    const gamesObject: GameResult[] = await page.evaluate(() => {
       const gamesNode = document.querySelector('.gameModules')
       const gamesNodeList = gamesNode.querySelectorAll('section .Scoreboard')
 
@@ -50,4 +51,5 @@ export class Espn {
     return dayGamesObject  
 
   }
+
 }
