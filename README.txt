@@ -1,1 +1,1 @@
-ts-node-esm my_server.ts
+npm run dev

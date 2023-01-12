@@ -5,6 +5,18 @@ import { Espn } from './espn'
 import { Oddsshark } from './oddsshark'
 import { getDateList } from './utils/GetDateList'
 
+export interface DateObject {
+  day: string,
+  month: string,
+  year: string
+}
+
+export interface jsonData {
+  date: string,
+  games: []
+}
+
+
 (async () => {
 
   const browser = await puppeteer.launch({ headless: true });
@@ -25,7 +37,7 @@ import { getDateList } from './utils/GetDateList'
     console.log(gamesData)
     
     fs.writeFile(
-      "./src/results/"+ gamesData.date.replaceAll('/','-') + '-results' + '.json', 
+      "./src/temp/results/"+ gamesData.date.replaceAll('/','-') + '-results' + '.json', 
       JSON.stringify(gamesData), 
     function(err) {
       if(err) {
@@ -42,7 +54,7 @@ import { getDateList } from './utils/GetDateList'
     console.log(gamesData)
 
       fs.writeFile(
-        "./src/predictions/"+ gamesData.date.replaceAll('/','-') + '.json', 
+        "./src/temp/predictions/"+ gamesData.date.replaceAll('/','-') + '.json', 
         JSON.stringify(gamesData), 
       function(err) {
         if(err) {
