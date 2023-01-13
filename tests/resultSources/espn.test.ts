@@ -1,14 +1,13 @@
 
-import { describe, expect, test, jest, it } from '@jest/globals';
+import { describe, expect, jest, it } from '@jest/globals';
 import puppeteer from 'puppeteer';
 
-import { Espn } from "../../src/resultSources/espn";
+import { EspnResultSource } from "../../src/resultSources/EspnResultSource";
 
 
 describe('Espn', () => {
 
-  const espn = new Espn();
-
+  const espn = new EspnResultSource();
 
   jest.setTimeout(10000)
   it('gets results from Espn', async () => {

@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-import { Espn } from './resultSources/espn'
+import { EspnResultSource } from './resultSources/espn'
 import { Oddsshark } from './predictionSources/oddsshark'
 import { toDateObject } from './utils/dateHandlers'
 import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
@@ -14,7 +14,7 @@ import { MatchPredictionProvider } from './MatchPredictionProvider';
     const scrappedPage = await browser.newPage();
     const matchDate = toDateObject(new Date('01/10/2023'));
 
-    const espn = new Espn();
+    const espn = new EspnResultSource();
     const resultProvider = new MatchResultProvider(espn)
     const matchResults = await resultProvider.getMatchResults(scrappedPage, matchDate)
     saveResultsFile(matchResults);

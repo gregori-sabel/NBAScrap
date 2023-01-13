@@ -1,7 +1,7 @@
 import { DateObject } from "../types/basicTypes";
 import { GameResult, ResultDataSource, DayDataResult } from "../types/resultTypes";
 
-export class Espn implements ResultDataSource {
+export class EspnResultSource implements ResultDataSource {
 
   htmlScrap() {
     const gamesNode = document.querySelector('.gameModules')
