@@ -34,3 +34,7 @@ export function toDateObject(matchDate: Date): DateObject {
     year: matchYear
   };
 }
+
+export function formatDateBR(date: DateObject) {
+  return [date.day, date.month, date.year].join('/')
+}
