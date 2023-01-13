@@ -2,37 +2,23 @@ import puppeteer from 'puppeteer';
 
 import { Espn } from './resultSources/espn'
 import { Oddsshark } from './predictionSources/oddsshark'
-import { parseMatchDate } from './utils/dateHandlers'
-import { ResultsDataSource, DayDataResult } from './types/resultTypes';
-import { PredictionDataSource, DayDataPrediction } from './types/predictionTypes';
+import { parseMatchDate as toDateObject } from './utils/dateHandlers'
 import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
+import { getMatchResults } from './getMatchResults';
+import { getMatchPredictions } from './getMatchPredictions';
 
 (async () => {
 
   const browser = await puppeteer.launch({ headless: true });
   const scrappedPage = await browser.newPage();
-  const { matchDay, matchMonth, matchYear } = parseMatchDate(new Date('01/10/2023'));
-
-  async function getMatchResults(resultsDataSource: ResultsDataSource): Promise<DayDataResult> {
-    return await resultsDataSource.getData(
-      scrappedPage,
-      { day: matchDay, month: matchMonth, year: matchYear }
-    )
-  }
-
-  async function getMatchPredictions(predictionDataSource: PredictionDataSource): Promise<DayDataPrediction> {
-    return await predictionDataSource.getData(
-      scrappedPage,
-      { day: matchDay, month: matchMonth, year: matchYear }
-    )
-  }
+  const matchDate = toDateObject(new Date('01/10/2023'));
 
   const espn = new Espn();
-  const matchResults = await getMatchResults(espn)
+  const matchResults = await getMatchResults(espn, scrappedPage, matchDate)
   saveResultsFile(matchResults);
 
   const oddsshark = new Oddsshark();
-  const matchPredictions = await getMatchPredictions(oddsshark)
+  const matchPredictions = await getMatchPredictions(oddsshark, scrappedPage, matchDate)
   savePredictionsFile(matchPredictions)
 
   await browser.close();

@@ -1,3 +1,5 @@
+import { DateObject } from "../types/basicTypes";
+
 export function getDateList(initialUSDate: string, finalUSDate: string) {
 
   let loopDate = '00/00/00'
@@ -22,9 +24,13 @@ export function getDateList(initialUSDate: string, finalUSDate: string) {
   return dateAMDArray
 }
 
-export function parseMatchDate(matchDate: Date): { matchDay: string; matchMonth: string; matchYear: string; } {
+export function parseMatchDate(matchDate: Date): DateObject {
   const matchYear = matchDate.getFullYear() + '';
   const matchMonth = String(matchDate.getMonth() + 1).padStart(2, '0');
   const matchDay = String(matchDate.getDate()).padStart(2, '0');
-  return { matchDay, matchMonth, matchYear };
+  return {
+    day: matchDay,
+    month: matchMonth,
+    year: matchYear
+  };
 }
