@@ -1,6 +1,6 @@
 import fileSystem from 'fs';
-import { DayDataPrediction } from "./types/predictionTypes";
-import { DayDataResult } from "./types/resultTypes";
+import { DayDataPrediction } from "../types/predictionTypes";
+import { DayDataResult } from "../types/resultTypes";
 
 function handleFileSavingError(error: NodeJS.ErrnoException) {
     if (error) {

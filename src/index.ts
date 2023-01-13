@@ -2,20 +2,16 @@ import puppeteer from 'puppeteer';
 
 import { Espn } from './resultSources/espn'
 import { Oddsshark } from './predictionSources/oddsshark'
-import { getDateList } from './utils/GetDateList'
+import { getDateList, parseMatchDate } from './utils/dateHandlers'
 import { ResultsDataSource, DayDataResult } from './types/resultTypes';
 import { PredictionDataSource, DayDataPrediction } from './types/predictionTypes';
-import { savePredictionsFile, saveResultsFile } from './fileSystemHandlers';
+import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
 
 (async () => {
 
   const browser = await puppeteer.launch({ headless: true });
   const scrappedPage = await browser.newPage();
-
-  const matchDate = new Date('01/10/2023'); // mes dia ano - palhaçada mas é assim
-  const matchYear = matchDate.getFullYear() + '';
-  const matchMonth = String(matchDate.getMonth() + 1).padStart(2, '0');
-  const matchDay = String(matchDate.getDate()).padStart(2, '0');
+  const { matchDay, matchMonth, matchYear } = parseMatchDate(new Date('01/10/2023'));
 
   const dateAMDArray = getDateList('12/10/2022', '12/10/2022')
   console.log(dateAMDArray)
