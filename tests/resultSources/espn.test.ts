@@ -2,7 +2,7 @@
 import { describe, expect, test, jest, it } from '@jest/globals';
 import puppeteer from 'puppeteer';
 
-import { Espn } from "../src/resultSources/espn";
+import { Espn } from "../../src/resultSources/espn";
 
 
 describe('Espn', () => {
