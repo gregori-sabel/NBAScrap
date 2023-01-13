@@ -9,12 +9,7 @@ export class MatchResultProvider {
         this.resultDataSource = resultSource
     }
 
-    async getMatchResults(
-        scrappedPage: Page,
-        matchDate: DateObject): Promise<DayDataResult> {
-        return await this.resultDataSource.getData(
-            scrappedPage,
-            matchDate
-        );
+    async getMatchResults(scrappedPage: Page, matchDate: DateObject): Promise<DayDataResult> {
+        return await this.resultDataSource.getData(scrappedPage, matchDate);
     }
 }
