@@ -6,9 +6,6 @@ import { Oddsshark } from './predictionSources/oddsshark'
 import { getDateList } from './utils/GetDateList'
 import { GameResult, ResultsDataSource } from './types/resultTypes';
 import { GamePrediction, PredictionDataSource } from './types/predictionTypes';
-import { match } from 'assert';
-
-
 
 export interface DayDataResult {
   date: string,
@@ -19,7 +16,6 @@ export interface DayDataPrediction {
   date: string,
   games: GamePrediction[]
 }
-
 
 (async () => {
 
@@ -35,29 +31,24 @@ export interface DayDataPrediction {
   console.log(dateAMDArray)
 
   async function getMatchResults(resultsDataSource: ResultsDataSource): Promise<DayDataResult> {
-    const matchData = await resultsDataSource.getData(
+    const matchResultData = await resultsDataSource.getData(
       scrappedPage,
       { day: matchDay, month: matchMonth, year: matchYear }
     )
 
-    console.log(matchData)
+    console.log(matchResultData)
 
-    return matchData;
+    return matchResultData;
   }
 
-  async function getPredicts(predictionDataSource: PredictionDataSource) {
-    const gamesData = await predictionDataSource.getData(scrappedPage, { day: matchDay, month: matchMonth, year: matchYear })
-    console.log(gamesData)
+  async function getMatchPredictions(predictionDataSource: PredictionDataSource): Promise<DayDataPrediction> {
+    const matchPredictionData = await predictionDataSource.getData(
+      scrappedPage,
+      { day: matchDay, month: matchMonth, year: matchYear }
+    )
+    console.log(matchPredictionData)
 
-    fs.writeFile(
-      "./src/temp/predictions/" + gamesData.date.replaceAll('/', '-') + '.json',
-      JSON.stringify(gamesData),
-      function (err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("The file was saved!");
-      });
+    return matchPredictionData
   }
 
   const espn = new Espn();
@@ -73,7 +64,16 @@ export interface DayDataPrediction {
     });
 
   const oddsshark = new Oddsshark();
-  await getPredicts(oddsshark)
+  const matchPredictions = await getMatchPredictions(oddsshark)
+  fs.writeFile(
+    "./src/temp/predictions/" + matchPredictions.date.replaceAll('/', '-') + '.json',
+    JSON.stringify(matchPredictions),
+    function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("The file was saved!");
+    });
 
   await browser.close();
 })();
