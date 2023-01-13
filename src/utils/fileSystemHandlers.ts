@@ -12,7 +12,7 @@ function handleFileSavingError(error: NodeJS.ErrnoException) {
 export function saveResultsFile(dayResultData: DayDataResult) {
     fileSystem.writeFile(
         "./src/temp/results/" + dayResultData.date.replaceAll('/', '-') + '-results' + '.json',
-        JSON.stringify(dayResultData),
+        JSON.stringify(dayResultData, null, 2),
         handleFileSavingError
     );
 }
@@ -20,6 +20,6 @@ export function saveResultsFile(dayResultData: DayDataResult) {
 export function savePredictionsFile(dayPredictionData: DayDataPrediction) {
     fileSystem.writeFile(
         "./src/temp/predictions/" + dayPredictionData.date.replaceAll('/', '-') + '-predictions' + '.json',
-        JSON.stringify(dayPredictionData),
+        JSON.stringify(dayPredictionData, null, 2),
         handleFileSavingError);
 }
