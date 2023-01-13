@@ -7,33 +7,31 @@ export class Espn implements ResultDataSource {
     const gamesNode = document.querySelector('.gameModules')
     const gamesNodeList = gamesNode.querySelectorAll('section .Scoreboard')
 
-
-    function scrapEachGame(game: Element) {
-      const awayTeamName = game.querySelectorAll('.ScoreCell__Truncate')[0].textContent.trim()
-      const homeTeamName = game.querySelectorAll('.ScoreCell__Truncate')[1].textContent.trim()
-
-      const awayTeamPoints = game.querySelectorAll('.ScoreCell__Score')[0].textContent.trim()
-      const homeTeamPoints = game.querySelectorAll('.ScoreCell__Score')[1].textContent.trim()
-
-      return {
-        home: {
-          name: homeTeamName,
-          points: homeTeamPoints
-        },
-        away: {
-          name: awayTeamName,
-          points: awayTeamPoints
-        },
-      }
-    }
-
     const gamesObject = Array.from(gamesNodeList).map(
-      (game) => scrapEachGame(game)
+      (game) => {
+        const awayTeamName = game.querySelectorAll('.ScoreCell__Truncate')[0].textContent.trim()
+        const homeTeamName = game.querySelectorAll('.ScoreCell__Truncate')[1].textContent.trim()
+
+        const awayTeamPoints = game.querySelectorAll('.ScoreCell__Score')[0].textContent.trim()
+        const homeTeamPoints = game.querySelectorAll('.ScoreCell__Score')[1].textContent.trim()
+
+        return {
+          home: {
+            name: homeTeamName,
+            points: homeTeamPoints
+          },
+          away: {
+            name: awayTeamName,
+            points: awayTeamPoints
+          },
+        }
+      }
     );
+
     return gamesObject
   }
 
-  async getData(page: any, { year, month, day }: DateObject): Promise<DayDataResult> {
+  async getData(page: any, { day, month, year }: DateObject): Promise<DayDataResult> {
     const brFormattedDate = [day, month, year].join('/')
 
     console.log('espn: ', brFormattedDate)
