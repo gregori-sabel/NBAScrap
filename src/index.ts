@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-import { EspnResultSource } from './resultSources/espn'
+import { EspnResultSource } from './resultSources/EspnResultSource'
 import { Oddsshark } from './predictionSources/oddsshark'
 import { toDateObject } from './utils/dateHandlers'
 import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
