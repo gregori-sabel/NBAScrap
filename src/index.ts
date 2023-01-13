@@ -5,7 +5,7 @@ import { Oddsshark } from './predictionSources/oddsshark'
 import { parseMatchDate as toDateObject } from './utils/dateHandlers'
 import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
 import { MatchResultProvider } from './MatchResultProvider';
-import { getMatchPredictions } from './getMatchPredictions';
+import { MatchPredictionProvider } from './getMatchPredictions';
 
 (async () => {
 
@@ -20,7 +20,8 @@ import { getMatchPredictions } from './getMatchPredictions';
     saveResultsFile(matchResults);
 
     const oddsshark = new Oddsshark();
-    const matchPredictions = await getMatchPredictions(oddsshark, scrappedPage, matchDate)
+    const predictionProvider = new MatchPredictionProvider(oddsshark)
+    const matchPredictions = await predictionProvider.getMatchPredictions(scrappedPage, matchDate)
     savePredictionsFile(matchPredictions)
   } finally {
     await browser.close();
