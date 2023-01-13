@@ -6,6 +6,7 @@ import { Oddsshark } from './predictionSources/oddsshark'
 import { getDateList } from './utils/GetDateList'
 import { GameResult, ResultsDataSource } from './types/resultTypes';
 import { GamePrediction, PredictionDataSource } from './types/predictionTypes';
+import { match } from 'assert';
 
 
 
@@ -23,35 +24,29 @@ export interface DayDataPrediction {
 (async () => {
 
   const browser = await puppeteer.launch({ headless: true });
-  const page = await browser.newPage();
+  const scrappedPage = await browser.newPage();
 
-  const date = new Date('01/10/2023'); // mes dia ano - palhaçada mas é assim
-  const year = date.getFullYear() + '';
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const matchDate = new Date('01/10/2023'); // mes dia ano - palhaçada mas é assim
+  const matchYear = matchDate.getFullYear() + '';
+  const matchMonth = String(matchDate.getMonth() + 1).padStart(2, '0');
+  const matchDay = String(matchDate.getDate()).padStart(2, '0');
 
   const dateAMDArray = getDateList('12/10/2022', '12/10/2022')
   console.log(dateAMDArray)
 
+  async function getMatchResults(resultsDataSource: ResultsDataSource): Promise<DayDataResult> {
+    const matchData = await resultsDataSource.getData(
+      scrappedPage,
+      { day: matchDay, month: matchMonth, year: matchYear }
+    )
 
-  async function getResults(resultsDataSource: ResultsDataSource) {
-    const gamesData = await resultsDataSource.getData(page, { day, month, year })
-    console.log(gamesData)
+    console.log(matchData)
 
-    fs.writeFile(
-      "./src/temp/results/" + gamesData.date.replaceAll('/', '-') + '-results' + '.json',
-      JSON.stringify(gamesData),
-      function (err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("The file was saved!");
-      });
+    return matchData;
   }
 
-
   async function getPredicts(predictionDataSource: PredictionDataSource) {
-    const gamesData = await predictionDataSource.getData(page, { day, month, year })
+    const gamesData = await predictionDataSource.getData(scrappedPage, { day: matchDay, month: matchMonth, year: matchYear })
     console.log(gamesData)
 
     fs.writeFile(
@@ -66,7 +61,16 @@ export interface DayDataPrediction {
   }
 
   const espn = new Espn();
-  await getResults(espn)
+  const matchResults = await getMatchResults(espn)
+  fs.writeFile(
+    "./src/temp/results/" + matchResults.date.replaceAll('/', '-') + '-results' + '.json',
+    JSON.stringify(matchResults),
+    function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("The file was saved!");
+    });
 
   const oddsshark = new Oddsshark();
   await getPredicts(oddsshark)
