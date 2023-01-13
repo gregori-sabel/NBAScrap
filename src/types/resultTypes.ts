@@ -16,7 +16,7 @@ export interface DayDataResult {
   games: GameResult[];
 }
 
-export interface ResultsDataSource {
+export interface ResultDataSource {
   getData(
     page: any,
     { year, month, day }: DateObject
