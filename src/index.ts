@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 
 import { Espn } from './resultSources/espn'
 import { Oddsshark } from './predictionSources/oddsshark'
-import { parseMatchDate as toDateObject } from './utils/dateHandlers'
+import { toDateObject } from './utils/dateHandlers'
 import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
 import { MatchResultProvider } from './MatchResultProvider';
 import { MatchPredictionProvider } from './MatchPredictionProvider';

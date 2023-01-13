@@ -24,7 +24,7 @@ export function getDateList(initialUSDate: string, finalUSDate: string) {
   return dateAMDArray
 }
 
-export function parseMatchDate(matchDate: Date): DateObject {
+export function toDateObject(matchDate: Date): DateObject {
   const matchYear = matchDate.getFullYear() + '';
   const matchMonth = String(matchDate.getMonth() + 1).padStart(2, '0');
   const matchDay = String(matchDate.getDate()).padStart(2, '0');
