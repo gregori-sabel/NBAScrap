@@ -1,8 +1,5 @@
-import { DayDataPrediction } from "..";
 import { DateObject } from "../types/basicTypes";
-import { GamePrediction, PredictionDataSource } from "../types/predictionTypes";
-
-
+import { DayDataPrediction, PredictionDataSource } from "../types/predictionTypes";
 
 export class Oddsshark implements PredictionDataSource {
   async getData(page: any, { year, month, day }: DateObject): (Promise<DayDataPrediction>) {
@@ -74,4 +71,3 @@ export class Oddsshark implements PredictionDataSource {
 
   }
 }
-

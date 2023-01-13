@@ -1,6 +1,5 @@
-import { DayDataResult } from ".."
 import { DateObject } from "../types/basicTypes";
-import { GameResult, ResultsDataSource } from "../types/resultTypes";
+import { GameResult, ResultsDataSource, DayDataResult } from "../types/resultTypes";
 
 export class Espn implements ResultsDataSource {
 

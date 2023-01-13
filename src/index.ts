@@ -1,21 +1,11 @@
 import puppeteer from 'puppeteer';
-import fs from 'fs'
 
 import { Espn } from './resultSources/espn'
 import { Oddsshark } from './predictionSources/oddsshark'
 import { getDateList } from './utils/GetDateList'
-import { GameResult, ResultsDataSource } from './types/resultTypes';
-import { GamePrediction, PredictionDataSource } from './types/predictionTypes';
-
-export interface DayDataResult {
-  date: string,
-  games: GameResult[]
-}
-
-export interface DayDataPrediction {
-  date: string,
-  games: GamePrediction[]
-}
+import { ResultsDataSource, DayDataResult } from './types/resultTypes';
+import { PredictionDataSource, DayDataPrediction } from './types/predictionTypes';
+import { savePredictionsFile, saveResultsFile } from './fileSystemHandlers';
 
 (async () => {
 
@@ -53,27 +43,11 @@ export interface DayDataPrediction {
 
   const espn = new Espn();
   const matchResults = await getMatchResults(espn)
-  fs.writeFile(
-    "./src/temp/results/" + matchResults.date.replaceAll('/', '-') + '-results' + '.json',
-    JSON.stringify(matchResults),
-    function (err) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log("The file was saved!");
-    });
+  saveResultsFile(matchResults);
 
   const oddsshark = new Oddsshark();
   const matchPredictions = await getMatchPredictions(oddsshark)
-  fs.writeFile(
-    "./src/temp/predictions/" + matchPredictions.date.replaceAll('/', '-') + '.json',
-    JSON.stringify(matchPredictions),
-    function (err) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log("The file was saved!");
-    });
+  savePredictionsFile(matchPredictions)
 
   await browser.close();
 })();

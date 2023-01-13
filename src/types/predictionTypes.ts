@@ -1,7 +1,4 @@
-import { DayDataPrediction } from ".."
 import { DateObject } from "./basicTypes"
-
-
 
 export interface GamePrediction {
   overValue: string,
@@ -20,10 +17,14 @@ export interface GamePrediction {
   }
 }
 
+export interface DayDataPrediction {
+  date: string;
+  games: GamePrediction[];
+}
 
-export interface PredictionDataSource{
-    getData(
-        page: any, 
-        {year, month, day}: DateObject
-    ): Promise<DayDataPrediction>
-  }
+export interface PredictionDataSource {
+  getData(
+    page: any,
+    { year, month, day }: DateObject
+  ): Promise<DayDataPrediction>
+}
