@@ -3,6 +3,11 @@ import { GameResult, ResultDataSource, DayDataResult } from "../types/resultType
 
 export class EspnResultSource implements ResultDataSource {
 
+  getMatchDateURL(matchDate: DateObject) {
+    return 'https://www.espn.com.br/nba/resultados/_/data/' +
+      (matchDate.year + matchDate.month + matchDate.day)
+  }
+
   htmlScrap() {
     const gamesNode = document.querySelector('.gameModules')
     const gamesNodeList = gamesNode.querySelectorAll('section .Scoreboard')
@@ -31,13 +36,12 @@ export class EspnResultSource implements ResultDataSource {
     return gamesObject
   }
 
-  async getData(page: any, { day, month, year }: DateObject): Promise<DayDataResult> {
+  async getData(page: any, matchDate: DateObject): Promise<DayDataResult> {
     const brFormattedDate = [day, month, year].join('/')
 
     console.log('espn: ', brFormattedDate)
-    console.log('https://www.espn.com.br/nba/resultados/_/data/' + (year + month + day))
 
-    await page.goto('https://www.espn.com.br/nba/resultados/_/data/' + (year + month + day));
+    await page.goto(this.getMatchDateURL(matchDate));
 
     // Wait for the results page to load and display the results.
     await page.waitForSelector('.gameModules');
