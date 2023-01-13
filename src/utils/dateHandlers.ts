@@ -36,4 +36,5 @@ export function toDateObject(matchDate: Date): DateObject {
 }
 
 export function formatDateBR(date: DateObject) {
+  return [date.day, date.month, date.year].join('/')
 }

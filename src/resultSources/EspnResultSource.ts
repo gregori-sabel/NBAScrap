@@ -1,5 +1,6 @@
 import { DateObject } from "../types/basicTypes";
 import { GameResult, ResultDataSource, DayDataResult } from "../types/resultTypes";
+import { formatDateBR } from "../utils/dateHandlers";
 
 export class EspnResultSource implements ResultDataSource {
 
@@ -37,9 +38,6 @@ export class EspnResultSource implements ResultDataSource {
   }
 
   async getData(page: any, matchDate: DateObject): Promise<DayDataResult> {
-    const brFormattedDate = [day, month, year].join('/')
-
-    console.log('espn: ', brFormattedDate)
 
     await page.goto(this.getMatchDateURL(matchDate));
 
@@ -47,13 +45,13 @@ export class EspnResultSource implements ResultDataSource {
     await page.waitForSelector('.gameModules');
 
     // Everthing inside evaluate happens inside the other browser
-    const gamesObject: GameResult[] = await page.evaluate(this.htmlScrap)
+    const matchResult: GameResult[] = await page.evaluate(this.htmlScrap)
 
-    const dayGamesObject = {
-      date: brFormattedDate,
-      games: gamesObject
+    const matchResults = {
+      date: formatDateBR(matchDate),
+      games: matchResult
     }
 
-    return dayGamesObject
+    return matchResults
   }
 }
