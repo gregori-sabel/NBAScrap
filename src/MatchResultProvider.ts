@@ -1,11 +1,11 @@
 import { Page } from 'puppeteer';
 import { DateObject } from './types/basicTypes';
-import { ResultsDataSource, DayDataResult } from './types/resultTypes';
+import { ResultDataSource, DayDataResult } from './types/resultTypes';
 
 export class MatchResultProvider {
-    private resultDataSource: ResultsDataSource;
+    private resultDataSource: ResultDataSource;
 
-    constructor(resultSource: ResultsDataSource) {
+    constructor(resultSource: ResultDataSource) {
         this.resultDataSource = resultSource
     }
 
