@@ -15,17 +15,10 @@ import { CbsSports } from './predictionSources/cbssports';
     const scrappedPage = await browser.newPage();
     const matchDate = toDateObject(new Date('01/10/2023'));
 
-<<<<<<< HEAD
     // const espn = new Espn();
     // const resultProvider = new MatchResultProvider(espn)
     // const matchResults = await resultProvider.getMatchResults(scrappedPage, matchDate)
     // saveResultsFile(matchResults);
-=======
-    const espn = new EspnResultSource();
-    const resultProvider = new MatchResultProvider(espn)
-    const matchResults = await resultProvider.getMatchResults(scrappedPage, matchDate)
-    saveResultsFile(matchResults);
->>>>>>> f4375ce06554f6fed7f08a0cfb4dec8cc3962335
 
     // const oddsshark = new Oddsshark();
     // const predictionProvider = new MatchPredictionProvider(oddsshark)
