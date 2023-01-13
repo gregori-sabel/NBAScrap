@@ -17,8 +17,5 @@ export interface DayDataResult {
 }
 
 export interface ResultDataSource {
-  getData(
-    page: any,
-    { year, month, day }: DateObject
-  ): Promise<DayDataResult>
+  getData(page: any, { day, month, year }: DateObject): Promise<DayDataResult>
 }
