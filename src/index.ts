@@ -5,7 +5,7 @@ import { Oddsshark } from './predictionSources/oddsshark'
 import { parseMatchDate as toDateObject } from './utils/dateHandlers'
 import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
 import { MatchResultProvider } from './MatchResultProvider';
-import { MatchPredictionProvider } from './getMatchPredictions';
+import { MatchPredictionProvider } from './MatchPredictionProvider';
 
 (async () => {
 
