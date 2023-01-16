@@ -1,18 +1,17 @@
 import puppeteer from 'puppeteer';
 
-import { EspnResultSource } from './resultSources/EspnResultSource'
 import { Oddsshark } from './predictionSources/oddsshark'
 import { toDateObject } from './utils/dateHandlers'
-import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
-import { MatchResultProvider } from './MatchResultProvider';
+import { savePredictionsFile } from './utils/fileSystemHandlers';
 import { MatchPredictionProvider } from './MatchPredictionProvider';
-import { CbsSports } from './predictionSources/cbssports';
+import { Cbssports } from './predictionSources/cbssports';
+import { Oddstrader } from './predictionSources/oddstrader';
+import { PredictionDataSource } from './types/predictionTypes';
 
 (async () => {
 
   const browser = await puppeteer.launch({ headless: true });
   try {
-    const scrappedPage = await browser.newPage();
     const matchDate = toDateObject(new Date('01/10/2023'));
 
     // const espn = new Espn();
@@ -20,15 +19,20 @@ import { CbsSports } from './predictionSources/cbssports';
     // const matchResults = await resultProvider.getMatchResults(scrappedPage, matchDate)
     // saveResultsFile(matchResults);
 
-    // const oddsshark = new Oddsshark();
-    // const predictionProvider = new MatchPredictionProvider(oddsshark)
-    // const matchPredictions = await predictionProvider.getMatchPredictions(scrappedPage, matchDate)
-    // savePredictionsFile(matchPredictions)
 
-    const cbsSports = new CbsSports();
-    const predictionProvider = new MatchPredictionProvider(cbsSports)
-    const matchPredictions = await predictionProvider.getMatchPredictions(scrappedPage, matchDate)
-    savePredictionsFile(matchPredictions)
+    async function getPredictionsAndSave(provider: PredictionDataSource, siteName: string) {
+      const predictionProvider = new MatchPredictionProvider(provider)
+      const matchPredictions = await predictionProvider.getMatchPredictions(browser, matchDate)
+      savePredictionsFile(matchPredictions, siteName)      
+    }
+
+    const oddstrader = new Oddstrader();
+    const cbssports = new Cbssports();
+    const oddsshark = new Oddsshark();
+
+    await getPredictionsAndSave(oddstrader, 'oddstrader')    
+    await getPredictionsAndSave(cbssports, 'cbssports')
+    await getPredictionsAndSave(oddsshark, 'oddsshark')
 
 
 

@@ -3,12 +3,15 @@
 // nesse aqui tambem conseguimos pegar o passado.
 // e o legal é que conseguimos tambem pegar o resultado real.
 
+import { Browser, Page } from "puppeteer";
 import { DateObject } from "../types/basicTypes";
 import { DayDataPrediction, PredictionDataSource } from "../types/predictionTypes";
 
-export class CbsSports implements PredictionDataSource {
+export class Cbssports implements PredictionDataSource {
   // async getData(page: any, { year, month, day }: DateObject): (Promise<DayDataPrediction>) {
-  async getData(page: any, { year, month, day }: DateObject){
+  async getData(browser: Browser, { year, month, day }: DateObject): (Promise<DayDataPrediction>){
+    
+    const page = await browser.newPage();
     await page.goto(`https://www.cbssports.com/nba/expert-picks/${''+year+month+day}/`);
 
     //Wait for the results page to load and display the results.
@@ -65,8 +68,9 @@ export class CbsSports implements PredictionDataSource {
 
 
     });
-    // console.log(gamesObject)
-
+    console.log(gamesObject)
+    
+    await page.close()
     return gamesObject;
 
 

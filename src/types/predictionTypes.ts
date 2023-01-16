@@ -1,19 +1,24 @@
+import { Browser } from "puppeteer";
 import { DateObject } from "./basicTypes"
 
 export interface GamePrediction {
   overValue: string,
-  overConsensus: string,
+  overConsensus?: string,
+  spredValue?: { 
+    team?: string,
+    value?: string,
+  },
   home: {
     name: string,
-    score: string,
-    spread: string,
-    spreadConsensus: string,
+    score?: string,
+    spread?: string,
+    spreadConsensus?: string,
   },
   away: {
     name: string,
-    score: string,
-    spread: string,
-    spreadConsensus: string,
+    score?: string,
+    spread?: string,
+    spreadConsensus?: string,
   }
 }
 
@@ -24,7 +29,7 @@ export interface DayDataPrediction {
 
 export interface PredictionDataSource {
   getData(
-    page: any,
+    page: Browser,
     { year, month, day }: DateObject
   ): Promise<DayDataPrediction>
 }
