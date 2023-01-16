@@ -68,7 +68,6 @@ export class Cbssports implements PredictionDataSource {
 
 
     });
-    console.log(gamesObject)
     
     await page.close()
     return gamesObject;

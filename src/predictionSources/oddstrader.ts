@@ -33,57 +33,49 @@ export class Oddstrader implements PredictionDataSource {
         const homeTeamScore = teamScores[1].textContent.trim()
         const awayTeamScore = teamScores[0].textContent.trim()
 
-        const secondDiv = game.querySelectorAll('.picksCard div')[2].textContent
-        // const extraInfo = secondDiv.querySelector('span').textContent.trim()
-
-        // const awayScore = game.querySelector('.pick-predicted-score-away .text-right').textContent.trim();
-        // const homeScore = game.querySelector('.pick-predicted-score-home .text-right').textContent.trim();
-
-        // const awaySpread = game.querySelector('.pick-computer-pick-spread-away .text-right').textContent.trim();
-        // const homeSpread = game.querySelector('.pick-computer-pick-spread-home .text-right').textContent.trim();
-
-        // const overValue = game.querySelector('.pick-computer-pick-under .text-right').textContent.trim();
-        // const overValueConsensus = game.querySelector('.pick-consensus-spread-away .text-right').textContent.trim();
-
-        // const homeSpreadConsensus = game.querySelector('.pick-consensus-spread-away .text-right').textContent.trim();
+        const secondDiv = game.querySelectorAll('.picksCard > div')[1]
+        const secondDivText = secondDiv.textContent.trim()
+        const homeSpread = secondDivText.split('Spread ')[1].split(' and')[0]
+        const awaySpread = (homeSpread[0] === '+' ? '-' : '+') + homeSpread.slice(1)
+        const homeSpreadConsensus = secondDivText.split(' cover ')[0].trim().split(' ').pop()
+        const overText = secondDivText.split('will go ')[1]
+        const overConsensus = overText.split(' ')[0]
+        const overValue = overText.split(' ')[1]
 
         return {
-          overValue: secondDiv,
-          // overConsensus: overValueConsensus.replace('%', ''),
+          overValue: overValue,
+          overConsensus: overConsensus,
           home: {
             name: homeTeamName,
             score: homeTeamScore,
-            // spread: homeSpread,
-            // spreadConsensus: homeSpreadConsensus.replace('%', '')
+            spread: homeSpread,
+            spreadConsensus: homeSpreadConsensus === 'not' ? 'not cover' : 'cover'
           },
           away: {
             name: awayTeamName,
             score: awayTeamScore,
-            // spread: awaySpread,
-            // spreadConsensus: (100 - +homeSpreadConsensus.replace('%', '')) + ''
+            spread: awaySpread,
+            spreadConsensus: homeSpreadConsensus === 'not' ? 'cover' : 'not cover'
           }
         }
 
       })
 
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      const fullDate = [day, month, year].join('/');
-
-      const predictedDay = {
-        date: fullDate,
-        games: gamesList
-      }
-
-      return predictedDay
+      return gamesList
 
     });
-    console.log(gamesObject)
+
+    const fullDate = `${day}/${month}/${year}`
+
+    const predictedDay = {
+      date: fullDate,
+      games: gamesObject
+    }
+
+    console.log(predictedDay)
 
     await page.close()
-    return gamesObject;
+    return predictedDay;
 
 
   }

@@ -54,7 +54,9 @@ export class EspnResultSource implements ResultDataSource {
       date: formatDateBR(matchDate),
       games: matchResults
     }
+
     await page.close()
     return matchResultsWithDate
+    
   }
 }

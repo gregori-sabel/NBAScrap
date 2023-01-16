@@ -9,9 +9,9 @@ function handleFileSavingError(error: NodeJS.ErrnoException) {
     console.log("The file was saved!")
 }
 
-export function saveResultsFile(dayResultData: DayDataResult) {
+export function saveResultsFile(dayResultData: DayDataResult, siteName: string) {
     fileSystem.writeFile(
-        "./src/temp/results/" + dayResultData.date.replaceAll('/', '-') + '-res-' + '.json',
+        "./src/temp/results/" + dayResultData.date.replaceAll('/', '-') + '-res-' + siteName + '.json',
         JSON.stringify(dayResultData, null, 2),
         handleFileSavingError
     );
