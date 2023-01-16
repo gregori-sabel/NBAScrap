@@ -1,14 +1,16 @@
+import { Browser } from "puppeteer";
 import { DateObject } from "./basicTypes"
 
-export interface GameResult {
-  home: {
-    name: string,
-    points: string
-  },
-  away: {
-    name: string,
-    points: boolean
-  },
+
+export interface GameResult { 
+  home: { 
+    name: string; 
+    points: string; 
+  }; 
+  away: { 
+    name: string; 
+    points: string; 
+  }; 
 }
 
 export interface DayDataResult {
@@ -17,5 +19,5 @@ export interface DayDataResult {
 }
 
 export interface ResultDataSource {
-  getData(page: any, { day, month, year }: DateObject): Promise<DayDataResult>
+  getData(browser: Browser, { day, month, year }: DateObject): Promise<DayDataResult>
 }

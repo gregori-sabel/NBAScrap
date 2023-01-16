@@ -19,9 +19,7 @@ describe('Espn', () => {
 
     const browser = await puppeteer.launch({ headless: true });
     try {
-      const page = await browser.newPage();
-
-      const expected = await espn.getData(page, { day: '10', month: '01', year: '2023' })
+      const expected = await espn.getData(browser, { day: '10', month: '01', year: '2023' })
       const actual = { "date": "10/01/2023", "games": [{ "home": { "name": "76ers", "points": "147" }, "away": { "name": "Pistons", "points": "116" } }, { "home": { "name": "Heat", "points": "112" }, "away": { "name": "Thunder", "points": "111" } }, { "home": { "name": "Raptors", "points": "132" }, "away": { "name": "Hornets", "points": "120" } }, { "home": { "name": "Jazz", "points": "116" }, "away": { "name": "Cavaliers", "points": "114" } }] }
       expect(expected).toEqual(actual)
     } finally {

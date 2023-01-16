@@ -1,3 +1,4 @@
+import { Browser } from "puppeteer";
 import { DateObject } from "../types/basicTypes";
 import { GameResult, ResultDataSource, DayDataResult } from "../types/resultTypes";
 import { formatDateBR } from "../utils/dateHandlers";
@@ -9,11 +10,11 @@ export class EspnResultSource implements ResultDataSource {
       (matchDate.year + matchDate.month + matchDate.day)
   }
 
-  htmlScrap() {
+  htmlScrap(): GameResult[] {
     const gamesNode = document.querySelector('.gameModules')
     const gamesNodeList = gamesNode.querySelectorAll('section .Scoreboard')
 
-    const gamesObject = Array.from(gamesNodeList).map(
+    const gamesObject: GameResult[] = Array.from(gamesNodeList).map(
       (game) => {
         const awayTeamName = game.querySelectorAll('.ScoreCell__Truncate')[0].textContent.trim()
         const homeTeamName = game.querySelectorAll('.ScoreCell__Truncate')[1].textContent.trim()
@@ -31,27 +32,29 @@ export class EspnResultSource implements ResultDataSource {
             points: awayTeamPoints
           },
         }
+        
       }
     );
 
     return gamesObject
   }
 
-  async getData(page: any, matchDate: DateObject): Promise<DayDataResult> {
+  async getData(browser: Browser, matchDate: DateObject): Promise<DayDataResult> {
 
+    const page = await browser.newPage()
     await page.goto(this.getMatchDateURL(matchDate));
 
     // Wait for the results page to load and display the results.
     await page.waitForSelector('.gameModules');
 
     // Everthing inside evaluate happens inside the other browser
-    const matchResult: GameResult[] = await page.evaluate(this.htmlScrap)
+    const matchResults: GameResult[] = await page.evaluate(this.htmlScrap)
 
-    const matchResults = {
+    const matchResultsWithDate = {
       date: formatDateBR(matchDate),
-      games: matchResult
+      games: matchResults
     }
-
-    return matchResults
+    await page.close()
+    return matchResultsWithDate
   }
 }

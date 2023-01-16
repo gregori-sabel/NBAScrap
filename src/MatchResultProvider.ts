@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { Browser, Page } from 'puppeteer';
 import { DateObject } from './types/basicTypes';
 import { ResultDataSource, DayDataResult } from './types/resultTypes';
 
@@ -9,7 +9,7 @@ export class MatchResultProvider {
         this.resultDataSource = resultSource
     }
 
-    async getMatchResults(scrappedPage: Page, matchDate: DateObject): Promise<DayDataResult> {
+    async getMatchResults(scrappedPage: Browser, matchDate: DateObject): Promise<DayDataResult> {
         return await this.resultDataSource.getData(scrappedPage, matchDate);
     }
 }
