@@ -40,8 +40,6 @@ import { ResultDataSource } from './types/resultTypes';
     await getResultsAndSave(espnPredictionSource, 'espn')
 
 
-
-
   } finally {
     await browser.close();
   }

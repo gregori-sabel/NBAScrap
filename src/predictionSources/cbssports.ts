@@ -3,7 +3,7 @@
 // nesse aqui tambem conseguimos pegar o passado.
 // e o legal é que conseguimos tambem pegar o resultado real.
 
-import { Browser, Page } from "puppeteer";
+import { Browser } from "puppeteer";
 import { DateObject } from "../types/basicTypes";
 import { DayDataPrediction, PredictionDataSource } from "../types/predictionTypes";
 
@@ -52,26 +52,19 @@ export class Cbssports implements PredictionDataSource {
 
       })
 
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      const fullDate = [day, month, year].join('/');
-
-      const predictedDay = {
-        date: fullDate,
-        games: gamesList
-      }
-
-
-      return predictedDay
+      return gamesList
 
 
     });
-    
-    await page.close()
-    return gamesObject;
+    const fullDate = `${day}/${month}/${year}`
 
+    const predictedDay = {
+      date: fullDate,
+      games: gamesObject
+    }
+
+    await page.close()
+    return predictedDay;
 
   }
 }
