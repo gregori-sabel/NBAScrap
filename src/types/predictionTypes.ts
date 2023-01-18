@@ -33,3 +33,7 @@ export interface PredictionDataSource {
     { year, month, day }: DateObject
   ): Promise<DayDataPrediction>
 }
+
+// export interface IPredictionRepository {
+
+// }
