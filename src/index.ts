@@ -11,6 +11,7 @@ import { PredictionDataSource } from './types/predictionTypes';
 import { MatchResultProvider } from './MatchResultProvider';
 import { ResultDataSource } from './types/resultTypes';
 import { ResultRepository } from './repositories/ResultRepository';
+import { ResultUseCases } from './controllers/resultUseCases';
 
 (async () => {
 
@@ -40,8 +41,7 @@ import { ResultRepository } from './repositories/ResultRepository';
     // await getPredictionsAndSave(oddssharkPredictionSource, 'oddsshark')    
     // await getResultsAndSave(espnPredictionSource, 'espn')
 
-    const resultRepository = new ResultRepository()
-    resultRepository.createResult({
+    const resultToSave = {
       away: {
         name: 'time de teste',
         points: '234',
@@ -50,7 +50,15 @@ import { ResultRepository } from './repositories/ResultRepository';
         name: 'HomeTeamTest',
         points: '34'
       }
-    })
+    }
+
+    // const resultRepository = new ResultRepository()
+    // resultRepository.createResult(resultToSave)
+
+
+
+    const resultUseCases = new ResultUseCases()
+    resultUseCases.saveResult(resultToSave)
 
 
   } finally {
