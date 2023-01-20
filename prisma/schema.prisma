@@ -10,33 +10,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Result {
-  id           Int    @id @default(autoincrement())
+model Game {
+  id   Int      @id @default(autoincrement())
+  date DateTime
+
   homeTeamName String
   awayTeamName String
+
+  Prediction Prediction[]
+  Result     Result[]
+}
+
+model Result {
+  id     Int @id @default(autoincrement())
+  gameId Int
 
   homeTeamScore Int
   awayTeamScore Int
 
-  Prediction Prediction[]
+  GameId Game @relation(fields: [gameId], references: [id])
 }
 
 model Prediction {
-  id       Int      @id @default(autoincrement())
-  resultId Int
-  siteName String
-  date     DateTime
+  id            Int       @id @default(autoincrement())
+  gameId        Int
+  siteName      String
+  especificDate DateTime?
 
-  homeTeamName String
-  awayTeamName String
+  homeTeamScore Int?
+  awayTeamScore Int?
 
-  homeTeamScore Int
-  awayTeamScore Int
+  overValue       Int?
+  overConsensus   Int?
+  spreadValue     Int?
+  spreadConcensus Int?
 
-  overValue       Int
-  overConsensus   Int
-  spreadValue     Int
-  spreadConcensus Int
-
-  ResultId Result @relation(fields: [resultId], references: [id])
+  GameId Game @relation(fields: [gameId], references: [id])
 }
