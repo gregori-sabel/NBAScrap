@@ -13,6 +13,23 @@ npm run dev
 npm install --save-dev ts-node typescript
 ```
 
+### Running Migrations
+
+- Create a .env file with a DATABASE_URL constraint 
+Ex: DATABASE_URL="postgresql://{username}:{password}@{host}:{port}/{tablename}"
+
+- Run migrations ( the example below is possibly incorrect. Zap-me)
+
+```bash
+npx prisma reset
+```
+
+- Seed the database with fake data
+
+```bash
+npx prisma db seed
+```
+
 ### Running Tests
 ```bash
 npm run test
