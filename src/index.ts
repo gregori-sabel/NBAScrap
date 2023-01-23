@@ -1,16 +1,16 @@
 import puppeteer from 'puppeteer';
 
-import { Oddsshark } from './predictionSources/oddsshark'
+import { Oddsshark } from './sources/predictionSources/oddsshark'
 import { toDateObject } from './utils/dateHandlers'
 import { savePredictionsFile, saveResultsFile } from './utils/fileSystemHandlers';
 import { MatchPredictionProvider } from './MatchPredictionProvider';
-import { Cbssports } from './predictionSources/cbssports';
-import { Oddstrader } from './predictionSources/oddstrader';
-import { EspnResultSource } from './resultSources/EspnResultSource'
+import { Cbssports } from './sources/predictionSources/cbssports';
+import { Oddstrader } from './sources/predictionSources/oddstrader';
+import { EspnResultSource } from './sources/resultSources/EspnResultSource'
 import { PredictionDataSource } from './types/predictionTypes';
 import { MatchResultProvider } from './MatchResultProvider';
 import { ResultDataSource } from './types/resultTypes';
-import { ResultRepository } from './repositories/ResultRepository';
+import { ResultRepository } from './repositories/resultRepository';
 import { ResultUseCases } from './controllers/resultUseCases';
 
 (async () => {

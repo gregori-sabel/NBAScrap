@@ -1,7 +1,7 @@
 import { Browser } from "puppeteer";
-import { DateObject } from "../types/basicTypes";
-import { GameResult, ResultDataSource, DayDataResult } from "../types/resultTypes";
-import { formatDateBR } from "../utils/dateHandlers";
+import { DateObject } from "../../types/basicTypes";
+import { GameResult, ResultDataSource, DayDataResult } from "../../types/resultTypes";
+import { formatDateBR } from "../../utils/dateHandlers";
 
 export class EspnResultSource implements ResultDataSource {
 

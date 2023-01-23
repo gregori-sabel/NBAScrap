@@ -1,24 +1,20 @@
-import { ResultRepository } from "../repositories/ResultRepository"
+import { GameRepository } from "../repositories/GameRepository";
+import { ResultRepository } from "../repositories/resultRepository"
 import { GameResult } from "../types/resultTypes";
 
 export class ResultUseCases { 
   async saveResult(result: GameResult) {
     const resultRepository = new ResultRepository();
+    const gameRepository = new GameRepository();
   
-    const savedResult = await resultRepository.getResultByDate(new Date())
+    const savedGame = await gameRepository.getGameByDateAndTeamNames(new Date(), result.home.name, result.away.name)
     
-    if(savedResult){
-      //caso esteja salvo um valor vazio, adicionar valor
-      if(savedResult.homeTeamScore === 0){
-        // atualizar valor do banco
-        // resultRepository.updateResult(result)
-      }else{
-        // caso ja tenha salvo o valor final, não salvar mais
-        return
-      }
+    if(savedGame){
+      await resultRepository.createResult(result, savedGame.id)
     }else{
       // caso não tenha registro de resultado no banco ainda, cria
-      resultRepository.createResult(result)
+      const game = await gameRepository.createGame(result.home.name, result.away.name)
+      await resultRepository.createResult(result, game.id)
     }
   } 
 }
