@@ -2,23 +2,23 @@ import { Browser } from "puppeteer";
 import { DateObject } from "./basicTypes"
 
 export interface GamePrediction {
-  overValue: string,
-  overConsensus?: string,
+  overValue: string | number,
+  overConsensus?: string | number,
   spredValue?: { 
     team?: string,
     value?: string,
   },
   home: {
     name: string,
-    score?: string,
-    spread?: string,
-    spreadConsensus?: string,
+    score?: string | number,
+    spread?: string | number,
+    spreadConsensus?: string | number,
   },
   away: {
     name: string,
-    score?: string,
-    spread?: string,
-    spreadConsensus?: string,
+    score?: string | number,
+    spread?: string | number,
+    spreadConsensus?: string | number,
   }
 }
 
