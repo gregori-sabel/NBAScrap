@@ -4,8 +4,8 @@
 // esse CONSENSUS é legal da gnt pegar tb
 
 import { Browser } from "puppeteer";
-import { DateObject } from "../types/basicTypes";
-import { DayDataPrediction, PredictionDataSource } from "../types/predictionTypes";
+import { DateObject } from "../../types/basicTypes";
+import { DayDataPrediction, PredictionDataSource } from "../../types/predictionTypes";
 
 export class Oddstrader implements PredictionDataSource {
   async getData(browser: Browser, { year, month, day }: DateObject): (Promise<DayDataPrediction>) {

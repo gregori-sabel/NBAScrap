@@ -4,8 +4,8 @@
 // e o legal é que conseguimos tambem pegar o resultado real.
 
 import { Browser } from "puppeteer";
-import { DateObject } from "../types/basicTypes";
-import { DayDataPrediction, PredictionDataSource } from "../types/predictionTypes";
+import { DateObject } from "../../types/basicTypes";
+import { DayDataPrediction, PredictionDataSource } from "../../types/predictionTypes";
 
 export class Cbssports implements PredictionDataSource {
   // async getData(page: any, { year, month, day }: DateObject): (Promise<DayDataPrediction>) {

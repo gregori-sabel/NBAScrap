@@ -12,6 +12,7 @@ import { MatchResultProvider } from './MatchResultProvider';
 import { ResultDataSource } from './types/resultTypes';
 import { ResultRepository } from './repositories/resultRepository';
 import { ResultUseCases } from './controllers/resultUseCases';
+import { PredictionUseCases } from './controllers/predictionUseCases';
 
 (async () => {
 
@@ -22,7 +23,9 @@ import { ResultUseCases } from './controllers/resultUseCases';
     async function getPredictionsAndSave(provider: PredictionDataSource, siteName: string) {
       const predictionProvider = new MatchPredictionProvider(provider)
       const matchPredictions = await predictionProvider.getMatchPredictions(browser, matchDate)
-      savePredictionsFile(matchPredictions, siteName)      
+      // savePredictionsFile(matchPredictions, siteName)      
+      const predictionUseCases = new PredictionUseCases()
+      // predictionUseCases.savePrediction()
     }
     
     async function getResultsAndSave(provider: ResultDataSource, siteName: string) {
@@ -31,34 +34,29 @@ import { ResultUseCases } from './controllers/resultUseCases';
       saveResultsFile(matchResults, siteName); 
     }
 
-    // const oddstraderPredictionSource = new Oddstrader();
-    // const cbssportsPredictionSource = new Cbssports();
-    // const oddssharkPredictionSource = new Oddsshark();
+    const oddstraderPredictionSource = new Oddstrader();
+    const cbssportsPredictionSource = new Cbssports();
+    const oddssharkPredictionSource = new Oddsshark();
     // const espnPredictionSource = new EspnResultSource();
 
-    // await getPredictionsAndSave(oddstraderPredictionSource, 'oddstrader')    
-    // await getPredictionsAndSave(cbssportsPredictionSource, 'cbssports')
-    // await getPredictionsAndSave(oddssharkPredictionSource, 'oddsshark')    
+
+    await getPredictionsAndSave(oddstraderPredictionSource, 'oddstrader')    
+    await getPredictionsAndSave(cbssportsPredictionSource, 'cbssports')
+    await getPredictionsAndSave(oddssharkPredictionSource, 'oddsshark')    
     // await getResultsAndSave(espnPredictionSource, 'espn')
 
-    const resultToSave = {
-      away: {
-        name: 'time de teste',
-        points: '234',
-      },
-      home: {
-        name: 'HomeTeamTest',
-        points: '34'
-      }
-    }
-
-    // const resultRepository = new ResultRepository()
-    // resultRepository.createResult(resultToSave)
-
-
-
-    const resultUseCases = new ResultUseCases()
-    resultUseCases.saveResult(resultToSave)
+    // const resultToSave = {
+    //   away: {
+    //     name: 'time de teste',
+    //     points: '234',
+    //   },
+    //   home: {
+    //     name: 'HomeTeamTest',
+    //     points: '34'
+    //   }
+    // }
+    // const resultUseCases = new ResultUseCases()
+    // resultUseCases.saveResult(resultToSave)
 
 
   } finally {
