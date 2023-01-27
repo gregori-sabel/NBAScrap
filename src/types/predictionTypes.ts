@@ -2,28 +2,29 @@ import { Browser } from "puppeteer";
 import { DateObject } from "./basicTypes"
 
 export interface GamePrediction {
-  overValue: string | number,
-  overConsensus?: string | number,
+  overValue: number,
+  overConsensus?: string,
   spredValue?: { 
     team?: string,
-    value?: string,
+    value?: number,
   },
   home: {
     name: string,
-    score?: string | number,
-    spread?: string | number,
-    spreadConsensus?: string | number,
+    score?: number,
+    spread?: number,
+    spreadConsensus?:  number | string,
   },
   away: {
     name: string,
-    score?: string | number,
-    spread?: string | number,
-    spreadConsensus?: string | number,
+    score?: number,
+    spread?:  number,
+    spreadConsensus?: number | string,
   }
 }
 
 export interface DayDataPrediction {
   date: string;
+  siteName: 'cbssports' | 'oddsshark' | 'oddstrader';
   games: GamePrediction[];
 }
 

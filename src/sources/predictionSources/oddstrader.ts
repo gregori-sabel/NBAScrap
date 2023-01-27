@@ -43,18 +43,18 @@ export class Oddstrader implements PredictionDataSource {
         const overValue = overText.split(' ')[1]
 
         return {
-          overValue: overValue,
+          overValue: +overValue,
           overConsensus: overConsensus,
           home: {
             name: homeTeamName,
-            score: homeTeamScore,
-            spread: homeSpread,
+            score: +homeTeamScore,
+            spread: +homeSpread,
             spreadConsensus: homeSpreadConsensus === 'not' ? 'not cover' : 'cover'
           },
           away: {
             name: awayTeamName,
-            score: awayTeamScore,
-            spread: awaySpread,
+            score: +awayTeamScore,
+            spread: +awaySpread,
             spreadConsensus: homeSpreadConsensus === 'not' ? 'cover' : 'not cover'
           }
         }
@@ -67,7 +67,8 @@ export class Oddstrader implements PredictionDataSource {
 
     const fullDate = `${day}/${month}/${year}`
 
-    const predictedDay = {
+    const predictedDay: DayDataPrediction = {
+      siteName: "oddstrader",
       date: fullDate,
       games: gamesObject
     }

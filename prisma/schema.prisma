@@ -19,6 +19,8 @@ model Game {
 
   Prediction Prediction[]
   Result     Result[]
+
+  @@unique([date, homeTeamName, awayTeamName])
 }
 
 model Result {
@@ -41,7 +43,7 @@ model Prediction {
   awayTeamScore Int?
 
   overValue       Int?
-  overConsensus   Int?
+  overConsensus   String?
   spreadValue     Int?
   spreadConcensus Int?
 

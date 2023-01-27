@@ -36,11 +36,11 @@ export class Cbssports implements PredictionDataSource {
         const spredValue = game.querySelector('.picks-td .expert-picks-col .expert-spread').textContent.trim();
 
         return {
-          overValue: overData.replace('O','').replace('U',''),
+          overValue: +overData.replace('O','').replace('U',''),
           overConsensus: overData[0],
           spredValue: { 
             team: spredValue.split('\n')[0].trim(), 
-            value: spredValue.split('\n')[1].trim() 
+            value: +spredValue.split('\n')[1].trim() 
           },
           home: {
             name: homeTeamName,
@@ -58,7 +58,8 @@ export class Cbssports implements PredictionDataSource {
     });
     const fullDate = `${day}/${month}/${year}`
 
-    const predictedDay = {
+    const predictedDay: DayDataPrediction = {
+      siteName: "cbssports",
       date: fullDate,
       games: gamesObject
     }

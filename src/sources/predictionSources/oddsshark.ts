@@ -36,7 +36,7 @@ export class Oddsshark implements PredictionDataSource {
         const homeSpreadConsensus = game.querySelector('.pick-consensus-spread-away .text-right').textContent.trim();
 
         return {
-          overValue: overValue,
+          overValue: +overValue,
           overConsensus: overValueConsensus.replace('%', ''),
           home: {
             name: teamNames[1].trim(),
@@ -60,7 +60,8 @@ export class Oddsshark implements PredictionDataSource {
 
     const fullDate = `${day}/${month}/${year}`
 
-    const predictedDay = {
+    const predictedDay: DayDataPrediction = {
+      siteName: "oddsshark",
       date: fullDate,
       games: gamesObject
     }
