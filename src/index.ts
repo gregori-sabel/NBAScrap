@@ -13,6 +13,7 @@ import { ResultDataSource } from './types/resultTypes';
 import { ResultRepository } from './repositories/resultRepository';
 import { ResultUseCases } from './controllers/resultUseCases';
 import { PredictionUseCases } from './controllers/predictionUseCases';
+import { PredictionRepository } from './repositories/predictionRepository';
 
 (async () => {
 
@@ -23,9 +24,10 @@ import { PredictionUseCases } from './controllers/predictionUseCases';
     async function getPredictionsAndSave(provider: PredictionDataSource, siteName: string) {
       const predictionProvider = new MatchPredictionProvider(provider)
       const matchPredictions = await predictionProvider.getMatchPredictions(browser, matchDate)
-      // savePredictionsFile(matchPredictions, siteName)      
+      savePredictionsFile(matchPredictions, siteName)      
+      console.log(matchPredictions.games)
       const predictionUseCases = new PredictionUseCases()
-      // predictionUseCases.savePrediction()
+      predictionUseCases.saveMultiplePredictions( matchDate, matchPredictions, siteName)
     }
     
     async function getResultsAndSave(provider: ResultDataSource, siteName: string) {
@@ -40,8 +42,8 @@ import { PredictionUseCases } from './controllers/predictionUseCases';
     // const espnPredictionSource = new EspnResultSource();
 
 
-    await getPredictionsAndSave(oddstraderPredictionSource, 'oddstrader')    
-    await getPredictionsAndSave(cbssportsPredictionSource, 'cbssports')
+    // await getPredictionsAndSave(oddstraderPredictionSource, 'oddstrader')    
+    // await getPredictionsAndSave(cbssportsPredictionSource, 'cbssports')
     await getPredictionsAndSave(oddssharkPredictionSource, 'oddsshark')    
     // await getResultsAndSave(espnPredictionSource, 'espn')
 
@@ -57,6 +59,8 @@ import { PredictionUseCases } from './controllers/predictionUseCases';
     // }
     // const resultUseCases = new ResultUseCases()
     // resultUseCases.saveResult(resultToSave)
+
+
 
 
   } finally {

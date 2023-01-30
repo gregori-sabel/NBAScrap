@@ -39,13 +39,15 @@ model Prediction {
   siteName      String
   especificDate DateTime?
 
-  homeTeamScore Int?
-  awayTeamScore Int?
+  homeTeamScore Float?
+  awayTeamScore Float?
 
-  overValue       Int?
+  overValue       Float?
   overConsensus   String?
-  spreadValue     Int?
-  spreadConcensus Int?
+  spreadValue     Float?
+  spreadConcensus String?
 
   GameId Game @relation(fields: [gameId], references: [id])
+
+  @@unique([gameId, siteName])
 }

@@ -6,7 +6,6 @@ async function main() {
 
   const game = await prisma.game.create({
     data: {
-      id: 1,
       date: new Date(),
       homeTeamName: 'time1',
       awayTeamName: 'time2',

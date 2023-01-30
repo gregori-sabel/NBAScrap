@@ -1,6 +1,6 @@
 import { Browser } from "puppeteer";
 import { DateObject } from "../../types/basicTypes";
-import { DayDataPrediction, PredictionDataSource } from "../../types/predictionTypes";
+import { DayDataPrediction, GamePrediction, PredictionDataSource } from "../../types/predictionTypes";
 
 export class Oddsshark implements PredictionDataSource {
   async getData(browser: Browser, { year, month, day }: DateObject): (Promise<DayDataPrediction>) {
@@ -35,9 +35,13 @@ export class Oddsshark implements PredictionDataSource {
 
         const homeSpreadConsensus = game.querySelector('.pick-consensus-spread-away .text-right').textContent.trim();
 
-        return {
+        const gameObject: GamePrediction = {
           overValue: +overValue,
           overConsensus: overValueConsensus.replace('%', ''),
+          spredValue: {
+            team: +homeSpread > 0 ? 'home' : 'away',
+            value: +homeSpread > 0 ? +homeSpread : +awaySpread,
+          },
           home: {
             name: teamNames[1].trim(),
             score: +homeScore,
@@ -51,6 +55,8 @@ export class Oddsshark implements PredictionDataSource {
             spreadConsensus: +(100 - +homeSpreadConsensus.replace('%', ''))
           }
         }
+
+        return gameObject
 
       })
 
